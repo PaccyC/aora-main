@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Link } from 'expo-router'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {images} from '../constants'
+import CustomButton from '@/components/CustomButton';
 export default function TabOneScreen() {
   return (
  <SafeAreaView className='bg-primary h-full'>
@@ -36,8 +37,15 @@ export default function TabOneScreen() {
       <Text className='text-sm font-plegular text-gray-100 mt-7 text-center'>Where creativity meets innovation: embark on a journey of limitless exploration
         with aora
       </Text>
+      <CustomButton 
+          title="Continue with Email"
+          handlePress={()=>{}}
+          containerStyles={"w-full mt-7"} 
+      />
     </View>
   </ScrollView>
+  {/* Status bar to show user some other information e.g: time */}
+  <StatusBar backgroundColor='#161622' style='light'/>
  </SafeAreaView>
   );
 }
