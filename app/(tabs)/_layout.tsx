@@ -1,25 +1,42 @@
-import {StyleSheet,Text,View} from 'react-native'
-import {Slot,Stack} from 'expo-router'
+import { View, Text,Image } from 'react-native'
+import { Tabs,Redirect } from 'expo-router'
+import {icons} from '../../constants'
 
-const RootLayout =()=>{
-  return(
-    <Stack>
-
-      <Stack.Screen name='index'  options={{
-        headerShown:false
-      }}></Stack.Screen>
-    </Stack>
+const TabIcon= ({icon,color,name,focused})=>{
+  return (
+    <View>
+      <Image 
+      source={icon}
+      resizeMode='contain'
+      tintColor={color}
+      className='w-6 h-6'
+      />
+      <Text className={`${focused ? 'font-psemibold':"font-plegular"} text-xs`}></Text>
+    </View>
+  )
+}
+const TabsLayout = () => {
+  return (
+  <>
+  <Tabs>
+    <Tabs.Screen 
+    name='home'
+    options={{
+      title:"Home",
+      headerShown:false,
+      tabBarIcon:({color,focused})=>(
+     <TabIcon 
+     icon={icons.home}
+     color={color}
+     name="Home"
+     focused={focused}
+     />
+      )
+    }}
+    /> 
+  </Tabs>
+  </>
   )
 }
 
-
-export default RootLayout
-
-const styles = StyleSheet.create({
-  container:{
-    display:'flex',
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center'
-  }
-})
+export default TabsLayout
