@@ -4,7 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import {images} from '../../constants'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
-import { Link } from 'expo-router'
+import { Link ,router} from 'expo-router'
+import { createUser } from '@/lib/appWrite'
+import { Alert } from 'react-native'
+import { signIn } from '@/lib/appWrite'
 const SignIn = () => {
 
   const [form, setForm] = useState({
@@ -13,8 +16,26 @@ const SignIn = () => {
   })
   const [isSubmitting, setisSubmitting] = useState(false)
 
-  const handleSUbmit= ()=>{
+  const handleSubmit= async()=>{
+    console.log("Submitting");
+    
+    if(!form.password || !form.email){
+      Alert.alert("Error","please fill in all fields")
 
+
+      setisSubmitting(true)
+      try {
+        
+      await signIn(form.email,form.password)
+
+        router.push('/home')
+      } catch (error) {
+        Alert.alert("Error",error.message)
+      }
+      finally{
+        setisSubmitting(false)
+      }
+    }
   }
   return (
    <SafeAreaView className='bg-primary h-full'>
@@ -45,7 +66,7 @@ const SignIn = () => {
       />
       <CustomButton
       title="Sign in"
-      handlePress={handleSUbmit}
+      handlePress={handleSubmit}
       isLoading={isSubmitting}
       containerStyles="mt-7"
       />
